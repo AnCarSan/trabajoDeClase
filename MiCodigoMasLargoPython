@@ -1,0 +1,806 @@
+import random
+
+
+picaro = {
+  "Vida": 250,
+  "Defensa": 100,
+  "Energía": 100,
+  "Autoataque": 50,
+  "Habilidad1": 120,
+  "CosteEnergiaHabilidad1": 50,
+  "Habilidad2": 40,
+  "CosteEnergiaHabilidad2": 25
+}
+
+picaroIA = {
+  "Vida": 250,
+  "Defensa": 100,
+  "Energia": 100,
+  "Autoataque": 50,
+  "Habilidad1": 120,
+  "CosteEnergiaHabilidad1": 50,
+  "Habilidad2": 40,
+  "CosteEnergiaHabilidad2": 25
+}
+
+mago = {
+  "Vida": 201,
+  "Defensa": 75,
+  "Mana": 100,
+  "Autoataque": 25,
+  "Habilidad1": 200,
+  "CosteManaHabilidad1": 50,
+  "Habilidad2": 400,
+  "CosteManaHabilidad2": 125
+}
+
+magoIA = {
+  "Vida": 201,
+  "Defensa": 75,
+  "Mana": 100,
+  "Autoataque": 25,
+  "Habilidad1": 200,
+  "CosteManaHabilidad1": 50,
+  "Habilidad2": 400,
+  "CosteManaHabilidad2": 125
+}
+
+guerrero = {
+  "Vida": 350,
+  "Defensa": 100,
+  "Ira": 100,
+  "Autoataque": 75,
+  "Habilidad1": 100,
+  "CosteIraHabilidad1": 50,
+  "Habilidad2": 125,
+  "CosteIraHabilidad2": 100
+}
+
+guerreroIA = {
+  "Vida": 350,
+  "Defensa": 100,
+  "Ira": 100,
+  "Autoataque": 75,
+  "Habilidad1": 100,
+  "CosteIraHabilidad1" : 50,
+  "Habilidad2": 125,
+  "CosteIraHabilidad2" : 100
+}
+
+ataqueAleatorio = [4, 5, 7, 10]
+
+maquina = int
+
+print("¿Que quieres hacer? ¿Ver los personajes o elegirlos?")
+respuesta = str(input())
+
+if respuesta == "ver":
+    print("Mago:")
+    print("Pasiva exclusiva de mago:")
+    print("Al utilizar un autoataque recuperas 25 de maná")
+    print("Vida: " + str(mago.get("Vida"))+
+    " Defensa: " + str(mago.get("Defensa"))+
+    " Mana: " + str(mago.get("Mana"))+
+    " Autoataque: " + str(mago.get("Autoataque"))+
+    " Habilidad 1: " + str(mago.get("Habilidad1"))+
+    " Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+
+    " Habilidad 2: " + str(mago.get("Habilidad2"))+
+    " Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+    
+    print("Picaro:")
+    print("Vida: " + str(picaro.get("Vida"))+
+    " Defensa: " + str(picaro.get("Defensa"))+
+    " Mana: " + str(picaro.get("Energía"))+
+    " Autoataque: " + str(picaro.get("Autoataque"))+
+    " Habilidad 1: " + str(picaro.get("Habilidad1"))+
+    " Costo de Habilidad 1: " + str(picaro.get("CosteManaHabilidad1"))+
+    " Habilidad 2: " + str(picaro.get("Habilidad2"))+
+    " Costo de Habilidad 2: " + str(picaro.get("CosteManaHabilidad2")))
+
+    print("Guerrero:")
+    print(" Vida: " + str(guerrero.get("Vida"))+
+    " Defensa: " + str(guerrero.get("Defensa"))+
+    " Mana: " + str(guerrero.get("Ira"))+
+    " Autoataque: " + str(guerrero.get("Autoataque"))+
+    " Habilidad 1: " + str(guerrero.get("Habilidad1"))+
+    " Costo de Habilidad 1: " + str(guerrero.get("CosteManaHabilidad1"))+
+    " Habilidad 2: " + str(guerrero.get("Habilidad2"))+
+    " Costo de Habilidad 2: " + str(guerrero.get("CosteManaHabilidad2")))
+
+print("Elige un personaje: Mago, picaro o guerrero...")
+respuestaPersonaje = str(input())
+
+if respuestaPersonaje == "mago" or "Mago":
+    maquina = random.randint(1,3)
+    if maquina == 1:
+      if mago.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("La pelea comienza, vas a luchar contra un mago y tu eres un mago.")
+        print("El primer turno es tuyo, ¿que quieres hacer?")
+        print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - magoIA.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            magoIA.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(magoIA.get("Vida"))+" Mana: " + str(magoIA.get("Mana"))+" Autoataque: " + str(magoIA.get("Autoataque"))+" Habilidad 1: " + str(magoIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(magoIA.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(magoIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(magoIA.get("CosteManaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and magoIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif magoIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+
+
+
+    elif maquina == 2:
+      print("La pelea comienza, vas a luchar contra un picaro y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and picaroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteEnergiaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(picaroIA.get("Vida"))+" Energia: " + str(picaroIA.get("Energia"))+" Autoataque: " + str(picaroIA.get("Autoataque"))+" Habilidad 1: " + str(picaroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(picaroIA.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(picaroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(picaroIA.get("CosteEnergiaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and picaroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif picaroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+        
+
+
+    elif maquina == 3:
+      print("La pelea comienza, vas a luchar contra un guerrero y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and guerreroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteIraHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(guerreroIA.get("Vida"))+" Ira: " + str(guerreroIA.get("Ira"))+" Autoataque: " + str(guerreroIA.get("Autoataque"))+" Habilidad 1: " + str(guerreroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(guerreroIA.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(guerreroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(guerreroIA.get("CosteIraHabilidad2")))
+
+      if mago.get("Vida") <= 0 and guerreroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif guerreroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+
+
+
+elif respuestaPersonaje == "guerrero" or "Guerrero":
+  maquina = random.randint(1,3)
+  if maquina == 1:
+      if mago.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("La pelea comienza, vas a luchar contra un mago y tu eres un mago.")
+        print("El primer turno es tuyo, ¿que quieres hacer?")
+        print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - magoIA.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            magoIA.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(magoIA.get("Vida"))+" Mana: " + str(magoIA.get("Mana"))+" Autoataque: " + str(magoIA.get("Autoataque"))+" Habilidad 1: " + str(magoIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(magoIA.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(magoIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(magoIA.get("CosteManaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and magoIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif magoIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+
+
+
+  elif maquina == 2:
+      print("La pelea comienza, vas a luchar contra un picaro y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and picaroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteEnergiaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(picaroIA.get("Vida"))+" Energia: " + str(picaroIA.get("Energia"))+" Autoataque: " + str(picaroIA.get("Autoataque"))+" Habilidad 1: " + str(picaroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(picaroIA.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(picaroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(picaroIA.get("CosteEnergiaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and picaroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif picaroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+  elif maquina == 3:
+      print("La pelea comienza, vas a luchar contra un guerrero y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and guerreroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteIraHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(guerreroIA.get("Vida"))+" Ira: " + str(guerreroIA.get("Ira"))+" Autoataque: " + str(guerreroIA.get("Autoataque"))+" Habilidad 1: " + str(guerreroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(guerreroIA.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(guerreroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(guerreroIA.get("CosteIraHabilidad2")))
+
+      if mago.get("Vida") <= 0 and guerreroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif guerreroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+  
+
+
+
+
+
+
+
+
+    
+elif respuestaPersonaje == "picaro" or "Picaro":
+  maquina = random.randint(1,3)
+  if maquina == 1:
+      if picaro.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("La pelea comienza, vas a luchar contra un mago y tu eres un picaro.")
+        print("El primer turno es tuyo, ¿que quieres hacer?")
+        print("Vida: " + str(picaro.get("Vida"))+" Mana: " + str(picaro.get("Mana"))+" Autoataque: " + str(picaro.get("Autoataque"))+" Habilidad 1: " + str(picaro.get("Habilidad1"))+" Costo de Habilidad 1: " + str(picaro.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(picaro.get("Habilidad2"))+" Costo de Habilidad 2: " + str(picaro.get("CosteManaHabilidad2")))
+      while picaro.get("Vida") > 0 and magoIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            magoIA.update({"Vida":magoIA.get("Vida") - picaro.get("Autoataque") })
+            picaro.update({"Mana":picaro.get("Mana") + 25 })
+            if ataqueIA == 4:
+              picaro.update({"Vida":picaro.get("Vida") - magoIA.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              picaro.update({"Vida":picaro.get("Vida") - picaro.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              picaro.update({"Vida":picaro.get("Vida") - picaro.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+          magoIA.update({"Vida":magoIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+            magoIA.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - mago.get("Autoataque") })
+              magoIA.update({"Mana":magoIA.get("Mana") + 25 })
+            elif ataqueIA == 5 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad1") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad1") })
+            elif ataqueIA == 7 and magoIA.get("Mana") >= magoIA.get("CosteManaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - mago.get("Habilidad2") })
+              magoIA.update({"Mana":magoIA.get("Mana") - magoIA.get("CosteManaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(magoIA.get("Vida"))+" Mana: " + str(magoIA.get("Mana"))+" Autoataque: " + str(magoIA.get("Autoataque"))+" Habilidad 1: " + str(magoIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(magoIA.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(magoIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(magoIA.get("CosteManaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and magoIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif magoIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+  elif maquina == 2:
+      print("La pelea comienza, vas a luchar contra un picaro y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and picaroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          picaroIA.update({"Vida":picaroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - picaroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad1") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad1") })
+            elif ataqueIA == 7 and picaroIA.get("Energia") >= picaroIA.get("CosteEnergiaHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - picaroIA.get("Habilidad2") })
+              picaroIA.update({"Energia":picaroIA.get("Energia") - picaroIA.get("CosteEnergiaHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteEnergiaHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(picaroIA.get("Vida"))+" Energia: " + str(picaroIA.get("Energia"))+" Autoataque: " + str(picaroIA.get("Autoataque"))+" Habilidad 1: " + str(picaroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(picaroIA.get("CosteEnergiaHabilidad1"))+" Habilidad 2: " + str(picaroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(picaroIA.get("CosteEnergiaHabilidad2")))
+
+      if mago.get("Vida") <= 0 and picaroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif picaroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
+      
+        
+
+
+  elif maquina == 3:
+      print("La pelea comienza, vas a luchar contra un guerrero y tu eres un mago.")
+      print("El primer turno es tuyo, ¿que quieres hacer?")
+      print("Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteManaHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteManaHabilidad2")))
+      while mago.get("Vida") > 0 and guerreroIA.get("Vida") > 0:
+        print("Comienzo de turno")
+        ataqueUsuario =  str(input())
+        if ataqueUsuario == "autoataque":
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Autoataque") })
+            mago.update({"Mana":mago.get("Mana") + 25 })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+                      
+          else:
+            print("El enemigo se ha defendido este turno")
+        
+        elif ataqueUsuario == "habilidad1" and mago.get("Mana") >= mago.get("CosteManaHabilidad1"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad1") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+
+        elif ataqueUsuario == "habilidad2" and mago.get("Mana") >= mago.get("CosteManaHabilidad2"):
+          guerreroIA.update({"Vida":guerreroIA.get("Vida") - mago.get("Habilidad2") })
+          ataqueIA = random.choice(ataqueAleatorio)
+          if ataqueIA != 10:
+            mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Autoataque") })
+            if ataqueIA == 4:
+              mago.update({"Vida":mago.get("Vida") - 25 })
+            elif ataqueIA == 5 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad1"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad1") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad1") })
+            elif ataqueIA == 7 and guerreroIA.get("Ira") >= guerreroIA.get("CosteIraHabilidad2"):
+              mago.update({"Vida":mago.get("Vida") - guerreroIA.get("Habilidad2") })
+              guerreroIA.update({"Ira":guerreroIA.get("Ira") - guerreroIA.get("CosteIraHabilidad2") })
+            else:
+              print("¡El ataque enemigo ha fallado!")
+        
+        elif ataqueUsuario == "defensa":
+          print("Te has defendido este turno")
+        print("Tu: ","Vida: " + str(mago.get("Vida"))+" Mana: " + str(mago.get("Mana"))+" Autoataque: " + str(mago.get("Autoataque"))+" Habilidad 1: " + str(mago.get("Habilidad1"))+" Costo de Habilidad 1: " + str(mago.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(mago.get("Habilidad2"))+" Costo de Habilidad 2: " + str(mago.get("CosteIraHabilidad2")))
+        print("Enemigo: ", "Vida: " + str(guerreroIA.get("Vida"))+" Ira: " + str(guerreroIA.get("Ira"))+" Autoataque: " + str(guerreroIA.get("Autoataque"))+" Habilidad 1: " + str(guerreroIA.get("Habilidad1"))+" Costo de Habilidad 1: " + str(guerreroIA.get("CosteIraHabilidad1"))+" Habilidad 2: " + str(guerreroIA.get("Habilidad2"))+" Costo de Habilidad 2: " + str(guerreroIA.get("CosteIraHabilidad2")))
+
+      if mago.get("Vida") <= 0 and guerreroIA.get("Vida") <= 0:
+        print("¡Empate épico!")
+      
+      elif guerreroIA.get("Vida") <= 0:
+        print("¡Has ganado crack!")
+      
+      elif mago.get("Vida") <= 0:
+        print("¡Has perdido!")
