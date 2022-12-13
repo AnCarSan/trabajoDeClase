@@ -1,0 +1,370 @@
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="containers-us-west-163.railway.app",
+  user="root",
+  port="7489",
+  password="9RtXGUubmjyc2oqfRmPa",
+  database="railway"
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW TABLES FROM railway")
+myresult = mycursor.fetchall()
+for x in range (0, len(myresult)) :
+  if str(myresult[x][0]) != "RolUsuarioBBDD" and str(myresult[x][0]) != "UsuarioBBDD":
+    mycursor.execute("DROP TABLE IF EXISTS " + myresult[x][0])
+
+mydb.commit()
+
+mycursor.execute("CREATE TABLE IF NOT EXISTS UsuarioBBDD (IDUsuarioBBDD INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Contraseña VARCHAR(255), Rol VARCHAR(255))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS RolUsuarioBBDD (IDRol INT AUTO_INCREMENT PRIMARY KEY, Rol VARCHAR(255))")
+mycursor.execute("CREATE TABLE Serie (IDSerie INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Genero VARCHAR(255), Director VARCHAR(255), Protagonista VARCHAR(255), DescripcionCorta VARCHAR(750), Temporadas INT(4), Episodios INT(5),Plataforma VARCHAR(255), AñoDePublicacion INT(5))")
+mycursor.execute("CREATE TABLE Musica (IDMusica INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Genero VARCHAR(255), Cantante VARCHAR(255), Compositor VARCHAR(255), Grupo VARCHAR(255), Plataforma VARCHAR(255), AñoDePublicacion INT(5))")
+mycursor.execute("CREATE TABLE Usuario (IDUsuario INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Genero VARCHAR(255), Correo VARCHAR(255), DNI VARCHAR(255), Contraseña VARCHAR(255), TipoDeCuenta VARCHAR(255), ActividadTotal INT(5),Plataforma VARCHAR(255), CantanteFavorito VARCHAR(255),GrupoFavorito VARCHAR(255))")
+mycursor.execute("CREATE TABLE Cantante (IDCantante INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Genero VARCHAR(255), Grupo VARCHAR(255), Edad INT(3), ObraMasPopular VARCHAR(255), Pais VARCHAR(255))")
+mycursor.execute("CREATE TABLE Plataforma (IDPlataforma INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), PrecioSubscripcion INT(3), UsuariosActivos INT(15), Ingresos INT(10), TipoDeContenido VARCHAR(255), Fundador VARCHAR(255))")
+mycursor.execute("CREATE TABLE Grupo (IDGrupo INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Genero VARCHAR(255), Integrantes INT(3), SigueExistiendo ENUM('si','no'), ObraMasPopular VARCHAR(255))")
+mycursor.execute("CREATE TABLE Actor (IDActor INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Edad INT(3),ObraMasPopular VARCHAR(255))")
+mycursor.execute("CREATE TABLE Director (IDirector INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Edad INT(3),ObraMasPopular VARCHAR(255))")
+mydb.commit()
+
+sql = "INSERT INTO Serie (Nombre, Genero, Director, Protagonista, DescripcionCorta, Temporadas, Episodios, Plataforma, AñoDePublicacion) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+val = [("Breaking Bad", "Drama", "Vince Giligan", "Bryan Cranston", "Walter White, profesor de química en un instituto, descubre que tiene cáncer de pulmón y decide trabajar junto con un ex-alumno elaborando metanfetamina de alta calidad para poder ganar dinero para que su familia se mantenga.", "5", "40", "Netflix", "2008"),
+("Cyberpunk: Edgerunners", "Ciberpunk", "Hiroyuki Imashi", "David Martinez", "Cyberpunk: Edgerunners, nos presenta la vida de un chico llamado David Martínez. Este vive en una ciudad futurista (Night City) llena de vida y color, donde mucha parte de la sociedad vive obsesionada con los implantes y las mejoras corporales que el futuro les puede ofrecer.", "1", "10", "Netflix", "2022"),
+("Rick y Morty", "Humor", "Justin Roiland", "Rick Sanchez", "La serie sigue las desventuras de un científico, Rick Sanchez, y su fácilmente influenciable nieto, Morty, quienes pasan el tiempo entre la vida doméstica y los viajes espaciales, temporales e intergalácticos.", "6", "48", "HBO", "2013")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+##sql = "INSERT INTO UsuarioBBDD (Nombre, Contraseña, Rol) VALUES (%s, %s, %s)"
+##val = [("Aner", "Jimenez", "Administrador"),
+##("Fionn", "Barrachina", "Administrador"),
+##("Iker", "Randez", "Editor"),
+##("Guillermo", "Sanchez", "Editor"),
+##("Juan Carlos", "Jaramillo", "Lector"),
+##("Alvaro", "Tefuitez", "Lector"),
+##("Rafa", "Lopez", "Lector"),
+##("APPS1M", "cev2408", "Lector"),
+##("Admin", "1234", "Administrador de usuarios")]
+##mycursor.executemany(sql, val)
+##mydb.commit()
+
+sql = "INSERT INTO RolUsuarioBBDD (Rol) VALUES (%s)"
+val = [("Administrador",),("Lector",),("Editor",)]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Musica (Nombre, Genero, Cantante, Compositor, Grupo, Plataforma, AñoDePublicacion) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+val = [("For the damaged Coda", "Rock Indie", "Simone Pace", "Kazu Makino", "Blonde Redhead", "Spotify", "2000"),
+("Dont look back", "Pop", "Kotomi", "Ryan Edler", "-", "YouTube", "2020"),
+("I really want to stay at your house", "Synth-Pop", "Rosa Walton", "Hallie Coggins", "-", "Spotify", "2020")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Usuario (Nombre, Genero, Correo, DNI, Contraseña, TipoDeCuenta, ActividadTotal, CantanteFavorito) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+val = [("Carlos Puigdemont", "Hombre", "indepe@hotmail.com", "123456789Y", "vivaespanya32", "Básica", "5", "50cent"),
+("Mariano Rajao", "Hombre", "alcalde@yahoo.es", "125789639Y", "vivacatalonia83", "Básica", "2", "Melendi"),
+("Irene Montero", "Mujer", "XxirenexX@gmail.com", "543219876Y", "chalet600k", "Premium++", "999", "el Cigala")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Cantante (Nombre, Genero, Grupo, Edad, ObraMasPopular, Pais) VALUES (%s, %s, %s, %s, %s, %s)"
+val = [("Rosa Walton", "Pop", "Lets Eat Grandma", "31", "I really want to stay at your house", "USA"),
+("Simone Pace", "Pop", "Blonde Redhead", "59", "For the damaged Coda", "Italia"),
+("Fredddy Mercury", "Pop/Rock", "Queen", "45", "We will rock you", "Tanzania")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Plataforma (Nombre, PrecioSubscripcion, UsuariosActivos, Ingresos, TipoDeContenido, Fundador) VALUES (%s, %s, %s, %s, %s, %s)"
+val = [("Spotify", "5", "10000000", "50000000", "Musica", "Daniel EK"),
+("Netflix", "11", "5000000", "55000000", "Series y películas", "Reed Hastings"),
+("HBO", "10", "3500000", "35000000", "Series y películas", "Charles Dollan")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Grupo (Nombre, Genero, Integrantes, SigueExistiendo, ObraMasPopular) VALUES (%s, %s, %s, %s, %s)"
+val = [("Queen", "Pop/Rock", "7", "Si", "We will rock you"),
+("Guns and Roses", "Rock", "24", "Si", "Sweet child O´ mine"),
+("Myth & Royd", "Pop/Rock", "4", "Si", "Styl Helyx")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Actor (Nombre, Edad, ObraMasPopular) VALUES (%s, %s, %s)"
+val = [("Dwayne Johnson", "50", "Black Adam"),
+("Ryan Reynolds", "46", "Deadpool"),
+("Tom Cruise", "60", "Top Gun")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+sql = "INSERT INTO Director (Nombre, Edad, ObraMasPopular) VALUES (%s, %s, %s)"
+val = [("Vince Gilligan", "55", "Breaking Bad"),
+("Quentin Gerome Tarantino", "59", "Pulp Fiction"),
+("Steven Spielberg", "75", "Tiburon")]
+mycursor.executemany(sql, val)
+mydb.commit()
+
+def borrarTabla():
+  print("¿Que tabla quieres eliminar?")
+  print("Serie, Actor, Director, Grupo, Musica, Plataforma, Usuario.")
+  tablaABorrar = str(input())
+  mycursor.execute("DROP TABLE " + tablaABorrar)
+
+def añadirTabla():
+  print("¿Que nombre tiene la tabla?")
+  tablaACrear = str(input())
+  mycursor.execute("CREATE TABLE " + tablaACrear + "(Id" + tablaACrear + " INT AUTO_INCREMENT PRIMARY KEY)")
+  print("¿Cuantos campos tiene tu tabla?")
+  numeroDeCampos = int(input())
+  for x in range (0, numeroDeCampos):
+    print("¿Que tipo de campo es, numero o caracter?")
+    tipoCampo = str(input())
+    if tipoCampo == "numero":
+      print("¿Como se llama el dato?")
+      nombreCampoN = str(input())
+      mycursor.execute("ALTER TABLE " + tablaACrear + " ADD (`"+nombreCampoN+"` INT(20))")
+    elif tipoCampo == "caracter":
+      print("¿Como se llama el dato?")
+      nombreCampoN = str(input())
+      mycursor.execute("ALTER TABLE " + tablaACrear + " ADD (`"+nombreCampoN+"` VARCHAR(20))")
+    else:
+      print(tipoCampo + "no es un tipo de dato")
+
+def modificarUnaTabla():
+  print("¿Que tabla quieres modificar?")
+  mycursor.execute("SHOW TABLES FROM railway")
+
+  myresult = mycursor.fetchall()
+
+  for x in myresult:
+    print(x)
+  
+  tablaAModificar = str(input())
+
+  print("¿Que ID vas a modificar?")
+  mycursor.execute("SELECT * FROM " + tablaAModificar)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  IdAModificar = int(input())
+
+  print("¿Que dato qiuieres modificar de " + tablaAModificar + "?")
+  mycursor.execute("DESCRIBE " + tablaAModificar)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x[0])
+  
+  datoAModificar = str(input())
+
+  print("¿En que quieres que se convierta?")
+
+  datoModificado = str(input())
+
+  sql = "UPDATE " + tablaAModificar + " SET " + datoAModificar + " = " + datoModificado + " WHERE Id"+ tablaAModificar + " = " + str(IdAModificar) 
+
+  mycursor.execute(sql)  
+
+  mydb.commit()
+
+def insertarDatosEnTabla():
+  print("¿Que tabla quieres modificar?")
+  mycursor.execute("SHOW TABLES FROM railway")
+
+  myresult = mycursor.fetchall()
+
+  for x in myresult:
+    print(x)
+  tablaAModificar = "RolUsuarioBBDD"
+  while tablaAModificar == "RolUsuarioBBDD" or tablaAModificar == "UsuarioBBDD":
+    tablaAModificar = str(input())
+    if tablaAModificar == "RolUsuarioBBDD" or tablaAModificar == "UsuarioBBDD":
+      print("No puedes modificar esa tabla, por favor elige otra.")
+  mycursor.execute("DESCRIBE " + tablaAModificar)
+  myresult = mycursor.fetchall()
+  arrayLongitud = len(myresult)
+  sql = "INSERT INTO "+tablaAModificar+ " ("
+  valuesS = ""
+  datosTotal = []
+  for x in range(1, arrayLongitud):
+    print(myresult[x][0])
+    datosTotal.append(str(input()))
+    sql = sql + str(myresult[x][0])
+    valuesS = valuesS+"%s"
+    if x < arrayLongitud -1:
+      sql = sql + ","
+      valuesS = valuesS+","
+
+  sql = sql + ") VALUES (" + valuesS + ")"
+  val = (datosTotal)
+  mycursor.execute(sql, val)  
+  mydb.commit()
+
+def verUnaTabla():
+  print("¿Que tabla quieres ver?")
+  mycursor.execute("SHOW TABLES FROM railway")
+
+  myresult = mycursor.fetchall()
+
+  for x in myresult:
+    print(x)
+  
+  tablaAVer = str(input())
+  mycursor.execute("SELECT * FROM " + tablaAVer)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+
+def borrarDatosDeUnaTabla():
+  print("¿Que tabla quieres modificar?")
+  mycursor.execute("SHOW TABLES FROM railway")
+
+  myresult = mycursor.fetchall()
+
+  for x in myresult:
+    print(x)
+  
+  tablaAModificar = str(input())
+
+  print("¿Que dato vas a borrar? Escriba su Id por favot")
+  mycursor.execute("SELECT * FROM " + tablaAModificar)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  IdABorrar = int(input())
+  sql = "DELETE FROM " +tablaAModificar+ " WHERE Id"+ tablaAModificar + " = " + str(IdABorrar)
+
+  mycursor.execute(sql)  
+
+  mydb.commit()
+
+def crearUsuario():
+  print("Introduce el nombre del usuario")
+  nombreUsuario = str(input())
+  print("Introduce la contraseña del usuario")
+  contraseñaUsuario = str(input())
+  print("Introduce el rol del usuario, estos son los roles disponibles:")
+  mycursor.execute("SELECT Rol FROM RolUsuarioBBDD")
+  RolUsuarioAMostrar = mycursor.fetchall()
+  print(RolUsuarioAMostrar)
+  rolUsuarioAIntroducir = str(input())
+  sql = "INSERT INTO UsuarioBBDD (Nombre, Contraseña, Rol) VALUES (%s, %s, %s)"
+  val = [(nombreUsuario,contraseñaUsuario,rolUsuarioAIntroducir)]
+  mycursor.executemany(sql,val)
+  mydb.commit()
+  
+
+
+def borrarUsuario():
+  print("Introduce el nombre del usuario")
+  mycursor.execute("SELECT Nombre FROM UsuarioBBDD")
+  myresult = mycursor.fetchall()
+  print(myresult)
+  nombreUsuario = str(input())
+  print("¿Estas seguro de que quieres borrar a "+ nombreUsuario + " de la base de datos?")
+  respuestaBorar = str(input())
+  if respuestaBorar == "si":
+    mycursor.execute("DELETE FROM UsuarioBBDD WHERE Nombre = '" + nombreUsuario+"'")
+  mydb.commit()
+
+
+  
+
+def modificarUsuario():
+  mycursor.execute("SELECT Nombre FROM UsuarioBBDD")
+  myresult = mycursor.fetchall()
+  print(myresult)
+  print("Introduce el nombre del usuario")
+  nombreUsuario = str(input())
+  mycursor.execute("SELECT * FROM UsuarioBBDD WHERE Nombre = '" + nombreUsuario+"'")
+  myresult = mycursor.fetchall()
+  print("Que quieres modificar del usuario? ¿Nombre, Contraseña o Rol?")
+  print(myresult)
+  respuestaModificar = str(input())
+  if respuestaModificar == "Nombre" or respuestaModificar == "Contraseña" or respuestaModificar == "Rol":
+    print("Introduzca el nuevo "+ respuestaModificar)
+    NombreModificar = str(input())
+    mycursor.execute("UPDATE UsuarioBBDD SET " + respuestaModificar + " = '" + NombreModificar + "' WHERE "+ respuestaModificar + " = '" + nombreUsuario+"'")
+  else:
+    print("Esa no es una respuesta válida")
+  mydb.commit()
+
+
+
+
+seguir = 1
+while seguir == 1:
+  print("Introduzca su usuario por favor:")
+  mycursor.execute("SELECT Nombre FROM UsuarioBBDD")
+  usuario = mycursor.fetchall()
+  usuarioEsta = False
+  while usuarioEsta != True:
+    introducirUsuario = str(input())
+    for x in range(len(usuario)):
+      if str(usuario[x][0]) == introducirUsuario:
+        usuarioEsta = True
+        break
+    if str(usuario[x][0]) != introducirUsuario:
+      print('"' +introducirUsuario + '" no es un usuario.')
+
+  print("Introduzca su contraseña por favor:")
+  introducirContraseña = str(input()) 
+  mycursor.execute("SELECT Contraseña FROM UsuarioBBDD WHERE Nombre = '" + introducirUsuario+"'")
+  contraseña = mycursor.fetchall()
+
+  while contraseña[0][0] != introducirContraseña:
+    print("'"+ introducirContraseña+"' no es la contraseña válida.")
+    introducirContraseña = str(input()) 
+
+  mycursor.execute("SELECT Rol FROM UsuarioBBDD WHERE Nombre = '" + introducirUsuario+"'")
+
+  rolUsuario = mycursor.fetchall()
+  
+  if rolUsuario[0][0] == "Administrador de usuarios":
+    print("¿Que quieres hacer, administrador de usuarios?")
+    opcionesAdmin = ["Crear usuario", "Borrar usuario", "Modificar usuario"]
+    print(opcionesAdmin)
+    respuestaAdmin = str(input())
+  
+    if respuestaAdmin == opcionesAdmin[0]:
+      crearUsuario()
+    elif respuestaAdmin == opcionesAdmin[1]:
+      borrarUsuario()
+    elif respuestaAdmin == opcionesAdmin[2]:
+      modificarUsuario()
+    else:
+      print("Esa no es una opción válida.")
+
+  
+  else:
+    print("¿Que quieres hacer?")
+    opciones = ["Eliminar una tabla", "Añadir una tabla", "Modificar una tabla", "Ver datos de una tabla", "Insertar datos en una tabla", "Borrar datos en una tabla"]
+    print(opciones)
+    respuesta = str(input())
+  
+    if respuesta == opciones[0] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Administrador"):
+      borrarTabla()
+  
+    elif respuesta == opciones[1] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Administrador"):
+      añadirTabla()
+  
+    elif respuesta == opciones[2] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Administrador"):
+      modificarUnaTabla()
+  
+    elif respuesta == opciones[3] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Lector" or rolUsuario[0][0] == "Administrador"):
+      verUnaTabla()
+  
+    elif respuesta == opciones[4] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Administrador"):
+      insertarDatosEnTabla()
+  
+    elif respuesta == opciones[5] and (rolUsuario[0][0] == "Editor" or rolUsuario[0][0] == "Administrador"):
+      borrarDatosDeUnaTabla()
+  
+    else:
+      print("Esa no es una opción válida")
+
+  print("¿Que quieres hacer? ¿Seguir o terminar la operación?")
+  respuestaASeguir = input()
+  if respuestaASeguir.lower() == "seguir":
+    seguir = 1
+  else:
+    seguir = 0
