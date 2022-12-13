@@ -1,0 +1,30 @@
+import Foundation
+
+print("Dame una frase")
+var texto: String = readLine()!
+
+texto = texto.lowercased()
+
+let components = texto.components(separatedBy:" ")
+let inicio = texto.index(texto.startIndex, offsetBy: 0)
+let fin = texto.index(texto.startIndex, offsetBy: 1)
+let rango = inicio..<fin
+var textoFinal = ""
+
+for i in 1...components.count {
+    texto = components[i-1]
+    if texto[rango] == "m" || texto[rango] == "p" || texto[rango] == "j"{
+        let cadena = String(repeating: "*", count: texto.count-1)
+        texto = texto[rango] + cadena
+    }
+    if textoFinal == "" {
+        textoFinal = textoFinal + texto
+    }
+    
+    else{
+        textoFinal = textoFinal + " " + texto
+        
+    }
+}
+
+print(textoFinal)
