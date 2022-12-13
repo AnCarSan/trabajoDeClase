@@ -1,0 +1,22 @@
+//
+//  main.swift
+//  Ejercicio1AnerJiménez
+//
+//  Created by Alumnos on 21/9/22.
+//
+
+import Foundation
+
+print("Hola, ¿cuantos números quieres usar?")
+var numeroDeNumeros: Float?
+let numeroDeNumerosText = readLine()
+var numeroDeNumerosAVer = Int(numeroDeNumerosText!)!
+numeroDeNumeros = Float(numeroDeNumerosText!)
+
+var contador:Float = 0
+var nums:Float?
+var resultado: Float = 0
+
+introducirNumeros()
+
+calcularMedia()
