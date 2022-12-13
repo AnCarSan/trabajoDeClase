@@ -1,0 +1,32 @@
+//
+//  main.swift
+//  Ejercicio1AnerJiménez
+//
+//  Created by Alumnos on 21/9/22.
+//
+
+import Foundation
+
+print("Hola, ¿cuantos números quieres usar?")
+var numeroDeNumeros: Float?
+let numeroDeNumerosText = readLine()
+var numeroDeNumerosAVer = Int(numeroDeNumerosText!)!
+numeroDeNumeros = Float(numeroDeNumerosText!)
+
+
+var contador:Float = 0
+var nums:Float?
+var resultado: Float = 0
+
+print("Introduzca ",numeroDeNumerosAVer," numeros")
+
+while contador < numeroDeNumeros!{
+    let num = readLine()
+    nums = Float(num!)
+    resultado += nums!
+    contador = contador+1
+}
+
+let media = resultado/numeroDeNumeros!
+
+print("La media es de:",media)
